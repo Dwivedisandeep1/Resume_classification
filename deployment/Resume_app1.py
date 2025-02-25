@@ -4,7 +4,6 @@ import numpy as np
 import streamlit as st
 from io import BytesIO
 import click
-import spacy
 import docx2txt
 import pdfplumber
 from pickle import load
@@ -30,8 +29,8 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import matplotlib.pyplot  as plt
 stop=set(stopwords.words('english'))
-from spacy.matcher import Matcher
-matcher = Matcher(nlp.vocab)
+# from spacy.matcher import Matcher
+# matcher = Matcher(nlp.vocab)
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 #----------------------------------------------------------------------------------------------------
@@ -50,7 +49,7 @@ def extract_skills(resume_text):
     tokens = [token.text for token in nlp_text if not token.is_stop] # removing stop words and implementing word tokenization
             
     
-    data = pd.read_csv(r"D:\Resumes_project-20240522T153441Z-001\skills.csv") # reading the csv file
+    data = pd.read_csv(r"skills.csv") # reading the csv file
             
     
     skills = list(data.columns.values)# extract values
@@ -128,8 +127,8 @@ skills = []
 #-------------------------------------------------------------------------------------------------
 # MAIN CODE
 import pickle as pk
-model = pk.load(open(r"D:\Resumes_project-20240522T153441Z-001\Resumes_project\ModelRFC.pkl", 'rb'))
-Vectorizer = pk.load(open(r'D:\Resumes_project-20240522T153441Z-001\Resumes_project\VECTOR.pkl', 'rb'))
+model = pk.load(open(r"ModelRFC.pkl", 'rb'))
+Vectorizer = pk.load(open(r'VECTOR.pkl', 'rb'))
 
 upload_file = st.file_uploader('Upload Your Resumes',
                                 type= ['docx','pdf'],accept_multiple_files=True)
